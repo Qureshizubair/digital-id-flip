@@ -918,56 +918,203 @@
         }
 
 
-        .prof-idqr-close {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            background-color: var(--prof-info-soft);
-            border: 1px solid var(--prof-hairline);
-            color: var(--prof-brand);
+        /* ── QR screen layout (mobile-first) ── */
+        .prof-idqr { padding: 0; background-color: var(--prof-page); }
+        .prof-idqr-face {
+            height: 100%;
+            gap: 0;
+            justify-content: flex-start;
+            background-color: var(--prof-page);
         }
-        .prof-idqr-close:active { background-color: var(--prof-hairline); }
 
-        .prof-idqr-eyebrow {
+        .prof-idqr-top {
+            position: relative;
+            width: 100%;
+            flex-shrink: 0;
+            padding: 14px 14px 46px 14px;
+            background-image: var(--prof-grad-hero);
+            border-bottom-left-radius: 26px;
+            border-bottom-right-radius: 26px;
+            color: var(--prof-on-brand);
+            overflow: hidden;
+        }
+        .prof-idqr-top .prof-hero-orb-a { right: -46px; top: -70px; }
+        .prof-idqr-navrow {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 36px 1fr 36px;
+            align-items: center;
+            gap: 10px;
+        }
+        .prof-idqr-close {
+            background-color: rgba(255, 255, 255, .18);
+            border: 1px solid rgba(255, 255, 255, .24);
+            color: var(--prof-on-brand);
+        }
+        .prof-idqr-close:active { background-color: rgba(255, 255, 255, .32); transform: scale(.94); }
+        .prof-idqr-toptitle {
             margin: 0;
-            font-size: 9px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: -.01em;
+            line-height: 1;
+        }
+        .prof-idqr-eyebrow {
+            position: relative;
+            z-index: 2;
+            margin: 12px 0 0 0;
+            text-align: center;
+            font-size: 8.5px;
             font-weight: 700;
-            letter-spacing: .18em;
-            color: var(--prof-label);
+            letter-spacing: .16em;
+            color: rgba(250, 250, 255, .78);
+        }
+
+        /* Verified chip */
+        .prof-idqr-chip {
+            position: relative;
+            z-index: 2;
+            margin: 8px auto 0 auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background-color: rgba(255, 255, 255, .16);
+            border: 1px solid rgba(255, 255, 255, .24);
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: .01em;
+        }
+        .prof-idqr-chip iconify-icon { font-size: 12px; }
+
+        /* QR card lifted over the gradient */
+        .prof-idqr-body {
+            width: 100%;
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 0 18px 22px 18px;
+            margin-top: -34px;
         }
         .prof-idqr-panel {
-            border-radius: 24px;
+            position: relative;
+            width: 100%;
+            border-radius: 26px;
+            background-color: var(--prof-card);
+            box-shadow: var(--prof-shadow-float);
+            padding: 20px 18px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+        .prof-idqr-qrwrap {
+            position: relative;
+            padding: 16px;
+            border-radius: 18px;
             background-color: #FFFFFF;
-            border: 1px solid var(--prof-hairline);
-            box-shadow: var(--prof-shadow-card);
-            padding: 26px;
         }
         .prof-idqr-svg {
             display: block;
-            width: 248px;
-            height: 248px;
+            width: min(240px, 62vw);
+            height: min(240px, 62vw);
             shape-rendering: crispEdges;
         }
-        .prof-idqr-meta { text-align: center; }
+        /* scan corner brackets */
+        .prof-idqr-corner {
+            position: absolute;
+            height: 22px;
+            width: 22px;
+            border: 2.5px solid var(--prof-brand);
+            border-radius: 4px;
+        }
+        .prof-idqr-corner-tl { top: 2px; left: 2px; border-right: none; border-bottom: none; }
+        .prof-idqr-corner-tr { top: 2px; right: 2px; border-left: none; border-bottom: none; }
+        .prof-idqr-corner-bl { bottom: 2px; left: 2px; border-right: none; border-top: none; }
+        .prof-idqr-corner-br { bottom: 2px; right: 2px; border-left: none; border-top: none; }
+
+        .prof-idqr-divider {
+            width: 100%;
+            height: 1px;
+            background-color: var(--prof-hairline-soft);
+        }
+        .prof-idqr-meta {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .prof-idqr-avatar {
+            height: 38px;
+            width: 38px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background-image: var(--prof-grad-inst);
+            color: var(--prof-on-brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 800;
+        }
+        .prof-idqr-metacol { min-width: 0; flex: 1; }
         .prof-idqr-name {
             margin: 0;
-            font-size: 16px;
+            font-size: 14.5px;
             font-weight: 800;
             letter-spacing: -.01em;
             color: var(--prof-fg);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .prof-idqr-mid {
-            margin: 4px 0 0 0;
-            font-size: 11px;
+            margin: 2px 0 0 0;
+            font-size: 10.5px;
             font-weight: 700;
             color: var(--prof-brand);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .prof-idqr-hint {
-            margin: 0;
-            font-size: 10px;
+        .prof-idqr-sub {
+            margin: 1px 0 0 0;
+            font-size: 9.5px;
             font-weight: 600;
             color: var(--prof-label);
         }
+        .prof-idqr-valid {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background-color: var(--prof-success-soft);
+            color: var(--prof-success);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .02em;
+        }
+        .prof-idqr-hint {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+            font-size: 10.5px;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--prof-label);
+        }
+        .prof-idqr-hint iconify-icon { font-size: 13px; color: var(--prof-brand); }
+
 
         /* Graceful degradation: straight cut with a plain fade */
         @media (prefers-reduced-motion: reduce) {
