@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Student Profile - Vriddhi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
+    <style>
+        :root {
+            --prof-page: #F4F5F8;
+            --prof-fg: #1C2033;
+            --prof-card: #FFFFFF;
+            --prof-label: #767C8E;
+            --prof-hairline: #E6E8EE;
+            --prof-hairline-soft: #F1F2F6;
+            --prof-brand: #3535D4;
+            --prof-brand-deep: #2620AD;
+            --prof-brand-light: #5B5BE8;
+            --prof-info-soft: #E6E7FB;
+            --prof-violet: #7D2FC4;
+            --prof-success: #128A5B;
+            --prof-success-soft: #DCF5E8;
+            --prof-warning: #C98212;
+            --prof-warning-soft: #FBEED6;
+            --prof-danger: #E0413A;
+            --prof-danger-soft: #FBE3E2;
+            --prof-on-brand: #FAFAFF;
+            --prof-grad-hero: linear-gradient(150deg, #2620AD 0%, #3535D4 55%, #5B5BE8 100%);
+            --prof-grad-inst: linear-gradient(100deg, #3535D4 0%, #7D2FC4 100%);
+            --prof-shadow-card: 0 1px 2px rgba(28, 32, 51, .06), 0 8px 24px rgba(28, 32, 51, .05);
+            --prof-shadow-float: 0 8px 24px rgba(28, 32, 51, .12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #E2E8F0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+        }
+
+        /* ── Mobile container shell ── */
+        .prof-page-root {
+            height: 100vh;
+            height: 100dvh;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            background-color: var(--prof-page);
+            color: var(--prof-fg);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .prof-svg { display: block; flex-shrink: 0; }
+
+        /* ── Hero header ── */
+        .prof-hero {
+            position: relative;
+            flex-shrink: 0;
+            overflow: hidden;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+            background-image: var(--prof-grad-hero);
+            padding: 12px 14px 40px 14px;
+            color: var(--prof-on-brand);
+        }
+        .prof-hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .prof-hero-orb-a {
+            right: -40px;
+            top: -64px;
+            height: 190px;
+            width: 190px;
+            background-color: rgba(255, 255, 255, .10);
+        }
+        .prof-hero-orb-b {
+            left: -64px;
+            top: 78px;
+            height: 172px;
+            width: 172px;
+            background-color: rgba(255, 255, 255, .06);
+        }
+
+        /* ── Nav row: back / centred title / balancing spacer ── */
+        .prof-nav {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 36px 1fr 36px;
+            align-items: center;
+            gap: 10px;
+        }
+        .prof-nav-btn {
+            height: 36px;
+            width: 36px;
+            padding: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, .18);
+            border: 1px solid rgba(255, 255, 255, .22);
+            color: var(--prof-on-brand);
+            cursor: pointer;
+            transition: transform .15s ease, background-color .15s ease;
+        }
+        .prof-nav-btn:active {
+            transform: scale(.94);
+            background-color: rgba(255, 255, 255, .30);
+        }
+        .prof-nav-title {
+            margin: 0;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: -.01em;
+            line-height: 1;
+            color: var(--prof-on-brand);
+        }
+        .prof-nav-spacer { height: 36px; width: 36px; }
+
+        /* ── Identity row ── */
+        .prof-identity {
+            position: relative;
+            z-index: 2;
+            margin-top: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .prof-avatar-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .prof-avatar {
+            position: relative;
+            height: 58px;
+            width: 58px;
+            border-radius: 50%;
+            border: 2.5px solid rgba(255, 255, 255, .92);
+            background-color: rgba(255, 255, 255, .18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: var(--prof-on-brand);
+        }
+        .prof-avatar-initials {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--prof-on-brand);
+            user-select: none;
+        }
+        .prof-avatar-badge {
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            height: 19px;
+            width: 19px;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+            background-color: var(--prof-brand);
+            color: var(--prof-on-brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .prof-id-col {
+            min-width: 0;
+            flex: 1;
+            padding-top: 2px;
+        }
+        .prof-eyebrow {
+            margin: 0;
+            font-size: 8.5px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: .14em;
+            color: rgba(250, 250, 255, .75);
+        }
+        .prof-memberid-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 0;
+        }
+        .prof-memberid {
+            margin: 0;
+            font-size: 11.5px;
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--prof-on-brand);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .prof-copy-btn {
+            position: relative;
+            display: flex;
+            flex-shrink: 0;
+            padding: 0;
+            border: none;
+            background: none;
+            color: rgba(250, 250, 255, .80);
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform .15s ease, color .15s ease;
+        }
+        .prof-copy-btn::after {
+            content: "";
+            position: absolute;
+            top: -11px;
+            right: -11px;
+            bottom: -11px;
+            left: -11px;
+        }
+        .prof-copy-btn:active { transform: scale(.88); }
+        .prof-copy-btn-ok { color: #6FE7B0; }
+        .prof-name {
+            margin: 2px 0 0 0;
+            font-size: 14.5px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--prof-on-brand);
+            overflow-wrap: anywhere;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+        .prof-classline {
+            margin: 3px 0 0 0;
+            font-size: 9.5px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: rgba(250, 250, 255, .90);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── QR Widget ── */
+        .prof-qr {
+            width: 80px;
+            flex-shrink: 0;
+            align-self: flex-start;
+            margin-top: -12px;
+            border-radius: 12px;
+            background-color: var(--prof-card);
+            padding: 6px;
+            box-shadow: var(--prof-shadow-float);
+        }
+        .prof-qr-frame {
+            position: relative;
+            width: 100%;
+            height: 68px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .prof-qr-svg { width: 100%; height: 100%; display: block; }
+        .prof-qr-scan {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--prof-brand);
+            box-shadow: 0 0 8px 1px var(--prof-brand);
+            animation: profQrScan 2.4s cubic-bezier(.45, 0, .55, 1) infinite;
+            will-change: transform;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .prof-qr-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            padding: 1px 3px;
+            font-size: 6.5px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -.01em;
+            color: var(--prof-brand);
+            white-space: nowrap;
+            box-shadow: 0 1px 3px rgba(28, 32, 51, .38);
+            pointer-events: none;
+        }
+
+        @keyframes profQrScan {
+            0%   { transform: translateY(2px); opacity: 0; }
+            10%  { opacity: 1; }
+            50%  { transform: translateY(64px); opacity: 1; }
+            90%  { opacity: 1; }
+            100% { transform: translateY(2px); opacity: 0; }
+        }
+
+        /* ── Pinned vitals block ── */
+        .prof-vitals-pin {
+            position: relative;
+            z-index: 6;
+            flex-shrink: 0;
+            margin-top: -30px;
+            padding: 0 14px;
+        }
+
+        /* ── Scroll area ── */
+        .prof-scroll {
+            position: relative;
+            z-index: 5;
+            flex: 1;
+            min-height: 0;
+            padding: 12px 14px 122px 14px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .prof-scroll::-webkit-scrollbar { display: none; }
+        .prof-scroll > * { flex-shrink: 0; }
+
+        /* ── Generic card ── */
+        .prof-card {
+            background-color: var(--prof-card);
+            border-radius: 20px;
+            box-shadow: var(--prof-shadow-card);
+        }
+        .prof-sec { padding: 14px; }
+        .prof-sec-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .prof-sec-title {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--prof-fg);
+        }
+        .prof-sec-sub {
+            margin: 3px 0 0 0;
+            font-size: 9.5px;
+            color: var(--prof-label);
+        }
+
+        /* ── Tinted icon bubbles ── */
+        .prof-bub {
+            height: 32px;
+            width: 32px;
+            flex-shrink: 0;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .prof-bub-success { background-color: var(--prof-success-soft); color: var(--prof-success); }
+        .prof-bub-warning { background-color: var(--prof-warning-soft); color: var(--prof-warning); }
+        .prof-bub-danger  { background-color: var(--prof-danger-soft);  color: var(--prof-danger); }
+
+        /* ── Trio row ── */
+        .prof-trio {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            align-items: center;
+            min-height: 68px;
+            padding: 14px 4px;
+        }
+        .prof-trio-cell {
+            display: flex;
+            min-width: 0;
+            align-items: center;
+            gap: 6px;
+            padding: 0 6px;
+        }
+        .prof-trio-cell + .prof-trio-cell { border-left: 1px solid var(--prof-hairline); }
+        .prof-trio-tap { cursor: pointer; }
+        .prof-trio-txt { min-width: 0; }
+        .prof-trio-lbl {
+            margin: 0;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--prof-label);
+        }
+        .prof-trio-val {
+            margin: 2px 0 0 0;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .prof-t-fg      { color: var(--prof-fg); }
+        .prof-t-brand   { color: var(--prof-brand); }
+        .prof-t-success { color: var(--prof-success); }
+        .prof-t-warning { color: var(--prof-warning); }
+        .prof-t-danger  { color: var(--prof-danger); }
+
+        /* ── Institution card ── */
+        .prof-inst {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            padding: 10px 14px;
+            min-height: 88px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: var(--prof-brand-deep);
+            background-image:
+                linear-gradient(100deg, rgba(38, 32, 173, .90) 0%, rgba(38, 32, 173, .62) 55%, rgba(38, 32, 173, .18) 100%),
+                radial-gradient(circle at 80% 20%, rgba(125, 47, 196, 0.4) 0%, transparent 60%),
+                var(--prof-grad-inst);
+            background-size: cover, cover, cover;
+            box-shadow: var(--prof-shadow-card);
+            color: var(--prof-on-brand);
+        }
+        .prof-inst-head {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .prof-inst-bub {
+            height: 32px;
+            width: 32px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background-color: var(--prof-card);
+            color: var(--prof-brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .prof-inst-txt {
+            min-width: 0;
+            flex: 1;
+            max-width: 82%;
+        }
+        .prof-inst-eyebrow {
+            margin: 0;
+            font-size: 8.5px;
+            font-weight: 500;
+            line-height: 1.15;
+            letter-spacing: .02em;
+            color: rgba(250, 250, 255, .92);
+            text-shadow: 0 1px 2px rgba(18, 14, 76, .55);
+        }
+        .prof-inst-name {
+            margin: 2px 0 0 0;
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 1.22;
+            color: var(--prof-on-brand);
+            overflow-wrap: anywhere;
+            text-shadow: 0 1px 3px rgba(18, 14, 76, .60);
+        }
+        .prof-inst-course {
+            margin: 3px 0 0 0;
+            font-size: 9.5px;
+            font-weight: 500;
+            line-height: 1.2;
+            color: rgba(250, 250, 255, .90);
+            overflow-wrap: anywhere;
+            text-shadow: 0 1px 2px rgba(18, 14, 76, .55);
+        }
+        .prof-inst-foot {
+            position: relative;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: nowrap;
+        }
+        .prof-inst-chip {
+            position: relative;
+            top: 3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border-radius: 9px;
+            background-color: rgba(18, 14, 76, .42);
+            border: 1px solid rgba(255, 255, 255, .26);
+            padding: 4px 8px;
+            font-size: 9px;
+            font-weight: 600;
+            color: var(--prof-on-brand);
+            white-space: nowrap;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .prof-inst-switch {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            flex-shrink: 0;
+            min-width: 106px;
+            border: none;
+            border-radius: 9px;
+            background-color: var(--prof-card);
+            padding: 6px 10px;
+            font-size: 9.5px;
+            font-weight: 700;
+            color: var(--prof-brand);
+            box-shadow: var(--prof-shadow-float);
+            font-family: inherit;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: transform .15s ease;
+        }
+        .prof-inst-switch:active { transform: scale(.96); }
+
+        /* ── Student information: two-column info rows ── */
+        .prof-info-grid {
+            margin-top: 12px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            row-gap: 12px;
+        }
+        .prof-info-cell {
+            display: flex;
+            min-width: 0;
+            align-items: center;
+            gap: 8px;
+            padding-right: 8px;
+        }
+        .prof-info-cell:nth-child(2n) {
+            padding-left: 12px;
+            padding-right: 0;
+            border-left: 1px solid var(--prof-hairline);
+        }
+        .prof-info-cell.prof-info-cell-wide {
+            grid-column: 1 / -1;
+            padding-left: 0;
+            padding-right: 0;
+            border-left: none;
+            padding-top: 10px;
+            border-top: 1px solid var(--prof-hairline-soft);
+        }
+        .prof-info-cell-wide .prof-info-val {
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+        .prof-info-bub {
+            height: 28px;
+            width: 28px;
+            flex-shrink: 0;
+            border-radius: 9px;
+            background-color: var(--prof-info-soft);
+            color: var(--prof-brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .prof-info-txt { min-width: 0; }
+        .prof-info-lbl {
+            margin: 0;
+            font-size: 8.5px;
+            color: var(--prof-label);
+        }
+        .prof-info-val {
+            margin: 1px 0 0 0;
+            font-size: 10.5px;
+            font-weight: 700;
+            color: var(--prof-fg);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .prof-info-val-brand { color: var(--prof-brand); }
+
+        /* ── Documents & Receipts accordion ── */
+        .prof-docs {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .prof-doc {
+            border: 1px solid var(--prof-hairline);
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: var(--prof-card);
+        }
+        .prof-doc-head {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .prof-doc-bub {
+            height: 32px;
+            width: 32px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--prof-on-brand);
+        }
+        .prof-doc-bub-violet  { background-color: var(--prof-violet); }
+        .prof-doc-bub-success { background-color: var(--prof-success); }
+        .prof-doc-bub-brand   { background-color: var(--prof-brand); }
+        .prof-doc-txt { min-width: 0; flex: 1; }
+        .prof-doc-title {
+            margin: 0;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--prof-fg);
+        }
+        .prof-doc-sub {
+            margin: 2px 0 0 0;
+            font-size: 9px;
+            color: var(--prof-label);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .prof-doc-chev {
+            height: 24px;
+            width: 24px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background-color: var(--prof-info-soft);
+            color: var(--prof-brand);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform .22s ease;
+        }
+        .prof-doc.open .prof-doc-chev { transform: rotate(180deg); }
+        .prof-doc-body {
+            margin: 0;
+            padding: 4px 10px 8px 10px;
+            border-top: 1px solid var(--prof-hairline);
+            list-style: none;
+            display: none;
+        }
+        .prof-doc.open .prof-doc-body {
+            display: block;
+        }
+        .prof-doc-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 0;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--prof-fg);
+        }
+        .prof-doc-item + .prof-doc-item { border-top: 1px solid var(--prof-hairline-soft); }
+        .prof-doc-item-name {
+            min-width: 0;
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .prof-doc-item-dl {
+            display: flex;
+            flex-shrink: 0;
+            color: var(--prof-brand);
+        }
+        .prof-tag-sample {
+            flex-shrink: 0;
+            border-radius: 6px;
+            background-color: var(--prof-warning-soft);
+            color: var(--prof-warning);
+            padding: 2px 6px;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .prof-tag-sample-quiet {
+            flex-shrink: 0;
+            border-radius: 5px;
+            background-color: var(--prof-hairline-soft);
+            color: var(--prof-label);
+            padding: 1px 5px;
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* ── Sign out ── */
+        .prof-signout {
+            display: flex;
+            width: 100%;
+            min-height: 46px;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid #F3C4C1;
+            border-radius: 14px;
+            background-color: var(--prof-card);
+            padding: 12px 14px;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--prof-danger);
+            box-shadow: var(--prof-shadow-card);
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform .15s ease;
+        }
+        .prof-signout:active { transform: scale(.98); }
+
+        /* ── Version footer ── */
+        .prof-footer {
+            padding-top: 4px;
+            text-align: center;
+        }
+        .prof-footer-txt {
+            font-size: 9.5px;
+            color: var(--prof-label);
+            font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+        }
+
+        /* ===== Reusable Floating Bottom Navigation ===== */
+        .floating-nav-bar {
+            position: absolute;
+            bottom: 12px;
+            left: 16px;
+            right: 16px;
+            height: 70px;
+            border-radius: 24px;
+            border: 1.5px solid transparent;
+            background: linear-gradient(#ffffff, #F8FAFC) padding-box,
+                linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%) border-box;
+            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.08);
+            z-index: 100;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            align-items: center;
+        }
+        .nav-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .nav-tab-icon-frame {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #64748B;
+            transition: background-color 0.2s, color 0.2s, transform 0.15s;
+            position: relative;
+        }
+        .nav-tab-icon-frame iconify-icon {
+            font-size: 22px;
+        }
+        .nav-tab-label {
+            font-size: 10px;
+            font-weight: 700;
+            color: #64748B;
+            transition: color 0.2s;
+        }
+        .nav-tab.active .nav-tab-icon-frame {
+            background-color: #EFF6FF;
+            color: #136dec;
+            transform: scale(1.05);
+        }
+        .nav-tab.active .nav-tab-label {
+            color: #136dec;
+        }
+        .nav-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 10px;
+            height: 10px;
+            background-color: #DC2626;
+            border: 1.5px solid #ffffff;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="prof-page-root">
+
+    <!-- HERO HEADER -->
+    <header class="prof-hero">
+        <span class="prof-hero-orb prof-hero-orb-a" aria-hidden="true"></span>
+        <span class="prof-hero-orb prof-hero-orb-b" aria-hidden="true"></span>
+
+        <div class="prof-nav">
+            <button type="button" class="prof-nav-btn" aria-label="Back to dashboard">
+                <iconify-icon icon="lucide:arrow-left" style="font-size: 20px;"></iconify-icon>
+            </button>
+            <h1 class="prof-nav-title">Student Profile</h1>
+            <div class="prof-nav-spacer"></div>
+        </div>
+
+        <!-- Identity row -->
+        <div class="prof-identity">
+            <!-- Avatar -->
+            <div class="prof-avatar-wrap">
+                <div class="prof-avatar">
+                    <span class="prof-avatar-initials">MS</span>
+                </div>
+                <span class="prof-avatar-badge" aria-hidden="true">
+                    <svg class="prof-svg" width="11" height="11" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                        <path d="m9 12 2 2 4-4" />
+                    </svg>
+                </span>
+            </div>
+
+            <div class="prof-id-col">
+                <p class="prof-eyebrow">MEMBER ID</p>
+                <div class="prof-memberid-row">
+                    <p class="prof-memberid" id="memberIdTxt">MEM-2024-8849</p>
+                    <button type="button" class="prof-copy-btn" id="copyBtn" aria-label="Copy Member ID" onclick="copyMemberId()">
+                        <svg class="prof-svg" id="copySvg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                        </svg>
+                    </button>
+                </div>
+                <h2 class="prof-name" title="Mubeen Shaikh">Mubeen Shaikh</h2>
+                <p class="prof-classline">S.Y. B.Com • Div A • Roll 21-ABC</p>
+            </div>
+
+            <!-- QR Code Card -->
+            <div class="prof-qr" aria-hidden="true">
+                <div class="prof-qr-frame">
+                    <svg class="prof-qr-svg" viewBox="0 0 100 100" focusable="false">
+                        <rect width="100" height="100" fill="#FFFFFF" />
+                        <g fill="#1C2033">
+                            <rect x="0" y="0" width="28" height="28" />
+                            <rect x="4" y="4" width="20" height="20" fill="#FFFFFF" />
+                            <rect x="8" y="8" width="12" height="12" />
+                            <rect x="72" y="0" width="28" height="28" />
+                            <rect x="76" y="4" width="20" height="20" fill="#FFFFFF" />
+                            <rect x="80" y="8" width="12" height="12" />
+                            <rect x="0" y="72" width="28" height="28" />
+                            <rect x="4" y="76" width="20" height="20" fill="#FFFFFF" />
+                            <rect x="8" y="80" width="12" height="12" />
+                            <!-- Pattern modules -->
+                            <rect x="36" y="8" width="4" height="4" /><rect x="44" y="8" width="4" height="4" /><rect x="52" y="8" width="4" height="4" />
+                            <rect x="32" y="16" width="4" height="4" /><rect x="40" y="16" width="4" height="4" /><rect x="48" y="16" width="4" height="4" /><rect x="60" y="16" width="4" height="4" />
+                            <rect x="36" y="24" width="4" height="4" /><rect x="48" y="24" width="4" height="4" /><rect x="56" y="24" width="4" height="4" />
+                            <rect x="8" y="36" width="4" height="4" /><rect x="16" y="36" width="4" height="4" /><rect x="28" y="36" width="4" height="4" /><rect x="44" y="36" width="4" height="4" /><rect x="68" y="36" width="4" height="4" /><rect x="84" y="36" width="4" height="4" />
+                            <rect x="12" y="44" width="4" height="4" /><rect x="24" y="44" width="4" height="4" /><rect x="36" y="44" width="4" height="4" /><rect x="52" y="44" width="4" height="4" /><rect x="72" y="44" width="4" height="4" />
+                            <rect x="8" y="52" width="4" height="4" /><rect x="20" y="52" width="4" height="4" /><rect x="32" y="52" width="4" height="4" /><rect x="48" y="52" width="4" height="4" /><rect x="60" y="52" width="4" height="4" /><rect x="80" y="52" width="4" height="4" />
+                            <rect x="36" y="68" width="4" height="4" /><rect x="48" y="68" width="4" height="4" /><rect x="68" y="68" width="4" height="4" /><rect x="88" y="68" width="4" height="4" />
+                            <rect x="40" y="76" width="4" height="4" /><rect x="56" y="76" width="4" height="4" /><rect x="76" y="76" width="4" height="4" />
+                            <rect x="32" y="84" width="4" height="4" /><rect x="44" y="84" width="4" height="4" /><rect x="64" y="84" width="4" height="4" /><rect x="80" y="84" width="4" height="4" />
+                        </g>
+                    </svg>
+                    <span class="prof-qr-scan"></span>
+                    <span class="prof-qr-label">Tap to open</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PINNED VITALS CARD -->
+    <div class="prof-vitals-pin">
+        <section class="prof-card">
+            <div class="prof-trio">
+                <!-- Attendance -->
+                <div class="prof-trio-cell">
+                    <div class="prof-bub prof-bub-success">
+                        <iconify-icon icon="lucide:calendar-check" style="font-size: 16px;"></iconify-icon>
+                    </div>
+                    <div class="prof-trio-txt">
+                        <p class="prof-trio-lbl">Attendance</p>
+                        <p class="prof-trio-val prof-t-success">88.5%</p>
+                    </div>
+                </div>
+
+                <!-- Fees -->
+                <div class="prof-trio-cell prof-trio-tap">
+                    <div class="prof-bub prof-bub-warning">
+                        <svg class="prof-svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" />
+                            <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />
+                        </svg>
+                    </div>
+                    <div class="prof-trio-txt">
+                        <p class="prof-trio-lbl">Fees</p>
+                        <p class="prof-trio-val prof-t-warning">Pending</p>
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="prof-trio-cell">
+                    <div class="prof-bub prof-bub-success">
+                        <svg class="prof-svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                            <path d="m9 12 2 2 4-4" />
+                        </svg>
+                    </div>
+                    <div class="prof-trio-txt">
+                        <p class="prof-trio-lbl">Status</p>
+                        <p class="prof-trio-val prof-t-success">Active</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- SCROLLING CONTENT -->
+    <main class="prof-scroll">
+
+        <!-- Institution Card -->
+        <section class="prof-inst">
+            <div class="prof-inst-head">
+                <div class="prof-inst-bub">
+                    <svg class="prof-svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 18v-7" />
+                        <path d="M11.12 2.198a2 2 0 0 1 1.76.006l7.866 3.847c.476.233.31.949-.22.949H3.474c-.53 0-.695-.716-.22-.949z" />
+                        <path d="M14 18v-7" />
+                        <path d="M18 18v-7" />
+                        <path d="M3 22h18" />
+                        <path d="M6 18v-7" />
+                    </svg>
+                </div>
+                <div class="prof-inst-txt">
+                    <p class="prof-inst-eyebrow">Current Institution</p>
+                    <h3 class="prof-inst-name">DSM College of Arts, Commerce &amp; Science</h3>
+                    <p class="prof-inst-course">Bachelor of Commerce • Section A</p>
+                </div>
+            </div>
+
+            <div class="prof-inst-foot">
+                <button type="button" class="prof-inst-switch">
+                    <span>Switch Institute</span>
+                    <svg class="prof-svg" width="11" height="11" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m2 9 3-3 3 3" />
+                        <path d="M13 18H7a2 2 0 0 1-2-2V6" />
+                        <path d="m22 15-3 3-3-3" />
+                        <path d="M11 6h6a2 2 0 0 1 2 2v10" />
+                    </svg>
+                </button>
+
+                <span class="prof-inst-chip">
+                    <svg class="prof-svg" width="11" height="11" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 2v4" />
+                        <path d="M16 2v4" />
+                        <rect width="18" height="18" x="3" y="4" rx="2" />
+                        <path d="M3 10h18" />
+                    </svg>
+                    2026-27
+                </span>
+            </div>
+        </section>
+
+        <!-- Student Information Grid -->
+        <section class="prof-card prof-sec">
+            <div class="prof-sec-head">
+                <h3 class="prof-sec-title">Student Information</h3>
+                <span class="prof-tag-sample-quiet">Admitted</span>
+            </div>
+
+            <div class="prof-info-grid">
+                <!-- Class -->
+                <div class="prof-info-cell">
+                    <div class="prof-info-bub">
+                        <iconify-icon icon="lucide:graduation-cap" style="font-size: 14px;"></iconify-icon>
+                    </div>
+                    <div class="prof-info-txt">
+                        <p class="prof-info-lbl">Class</p>
+                        <p class="prof-info-val">S.Y. B.Com</p>
+                    </div>
+                </div>
+
+                <!-- Division -->
+                <div class="prof-info-cell">
+                    <div class="prof-info-bub">
+                        <svg class="prof-svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="7" height="7" x="3" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="3" rx="1" />
+                            <rect width="7" height="7" x="14" y="14" rx="1" />
+                            <rect width="7" height="7" x="3" y="14" rx="1" />
+                        </svg>
+                    </div>
+                    <div class="prof-info-txt">
+                        <p class="prof-info-lbl">Division</p>
+                        <p class="prof-info-val">Division A</p>
+                    </div>
+                </div>
+
+                <!-- Roll No -->
+                <div class="prof-info-cell">
+                    <div class="prof-info-bub">
+                        <svg class="prof-svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" x2="20" y1="9" y2="9" />
+                            <line x1="4" x2="20" y1="15" y2="15" />
+                            <line x1="10" x2="8" y1="3" y2="21" />
+                            <line x1="16" x2="14" y1="3" y2="21" />
+                        </svg>
+                    </div>
+                    <div class="prof-info-txt">
+                        <p class="prof-info-lbl">Roll No</p>
+                        <p class="prof-info-val">21-ABC</p>
+                    </div>
+                </div>
+
+                <!-- Member ID -->
+                <div class="prof-info-cell">
+                    <div class="prof-info-bub">
+                        <svg class="prof-svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 10h2" />
+                            <path d="M16 14h2" />
+                            <path d="M6.17 15a3 3 0 0 1 5.66 0" />
+                            <circle cx="9" cy="11" r="2" />
+                            <rect x="2" y="5" width="20" height="14" rx="2" />
+                        </svg>
+                    </div>
+                    <div class="prof-info-txt">
+                        <p class="prof-info-lbl">Member ID</p>
+                        <p class="prof-info-val">MEM-2024-8849</p>
+                    </div>
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="prof-info-cell">
+                    <div class="prof-info-bub">
+                        <svg class="prof-svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M8 2v4" />
+                            <path d="M16 2v4" />
+                            <rect width="18" height="18" x="3" y="4" rx="2" />
+                            <path d="M3 10h18" />
+                            <path d="M8 14h.01" />
+                            <path d="M12 14h.01" />
+                            <path d="M16 14h.01" />
+                            <path d="M8 18h.01" />
+                            <path d="M12 18h.01" />
+                        </svg>
+                    </div>
+                    <div class="prof-info-txt">
+                        <p class="prof-info-lbl">Date of Birth</p>
+                        <p class="prof-info-val">15/08/2004</p>
+                    </div>
+                </div>
+
+                <!-- Gender -->
+                <div class="prof-info-cell">
+                    <div class="prof-info-bub">
+                        <iconify-icon icon="lucide:user" style="font-size: 14px;"></iconify-icon>
+                    </div>
+                    <div class="prof-info-txt">
+                        <p class="prof-info-lbl">Gender</p>
+                        <p class="prof-info-val">Male</p>
+                    </div>
+                </div>
+
+                <!-- Blood Group -->
+                <div class="prof-info-cell">
+                    <div class="prof-info-bub">
+                        <svg class="prof-svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
+                        </svg>
+                    </div>
+                    <div class="prof-info-txt">
+                        <p class="prof-info-lbl">Blood Group</p>
+                        <p class="prof-info-val">O +ve</p>
+                    </div>
+                </div>
+
+                <!-- Mobile -->
+                <div class="prof-info-cell">
+                    <div class="prof-info-bub">
+                        <svg class="prof-svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+                        </svg>
+                    </div>
+                    <div class="prof-info-txt">
+                        <p class="prof-info-lbl">Mobile</p>
+                        <p class="prof-info-val">+91 98765 43210</p>
+                    </div>
+                </div>
+
+                <!-- Email (Spanning both columns) -->
+                <div class="prof-info-cell prof-info-cell-wide">
+                    <div class="prof-info-bub">
+                        <iconify-icon icon="lucide:mail" style="font-size: 14px;"></iconify-icon>
+                    </div>
+                    <div class="prof-info-txt">
+                        <p class="prof-info-lbl">Email</p>
+                        <p class="prof-info-val prof-info-val-brand">mubeen.sk.09@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Documents & Receipts Accordion -->
+        <section class="prof-card prof-sec">
+            <div class="prof-sec-head">
+                <h3 class="prof-sec-title">Documents &amp; Receipts</h3>
+                <span class="prof-tag-sample">Sample</span>
+            </div>
+            <p class="prof-sec-sub">Preview of the layout — downloads are not available yet.</p>
+
+            <div class="prof-docs">
+                <!-- Admission Forms -->
+                <div class="prof-doc" id="doc0">
+                    <button type="button" class="prof-doc-head" onclick="toggleDoc('doc0')">
+                        <div class="prof-doc-bub prof-doc-bub-violet">
+                            <iconify-icon icon="lucide:file-text" style="font-size: 15px;"></iconify-icon>
+                        </div>
+                        <div class="prof-doc-txt">
+                            <p class="prof-doc-title">Admission Forms</p>
+                            <p class="prof-doc-sub">Submitted admission forms for all classes</p>
+                        </div>
+                        <div class="prof-doc-chev">
+                            <iconify-icon icon="lucide:chevron-down" style="font-size: 13px;"></iconify-icon>
+                        </div>
+                    </button>
+                    <ul class="prof-doc-body">
+                        <li class="prof-doc-item">
+                            <span class="prof-doc-item-name">Admission Form 2026-27</span>
+                            <span class="prof-tag-sample-quiet">Sample</span>
+                            <span class="prof-doc-item-dl">
+                                <svg class="prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" x2="12" y1="15" y2="3" />
+                                </svg>
+                            </span>
+                        </li>
+                        <li class="prof-doc-item">
+                            <span class="prof-doc-item-name">Admission Form 2025-26</span>
+                            <span class="prof-tag-sample-quiet">Sample</span>
+                            <span class="prof-doc-item-dl">
+                                <svg class="prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" x2="12" y1="15" y2="3" />
+                                </svg>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Institute Receipts -->
+                <div class="prof-doc" id="doc1">
+                    <button type="button" class="prof-doc-head" onclick="toggleDoc('doc1')">
+                        <div class="prof-doc-bub prof-doc-bub-success">
+                            <svg class="prof-svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
+                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                                <path d="M12 11h4" /><path d="M12 16h4" />
+                                <path d="M8 11h.01" /><path d="M8 16h.01" />
+                            </svg>
+                        </div>
+                        <div class="prof-doc-txt">
+                            <p class="prof-doc-title">Institute Receipts</p>
+                            <p class="prof-doc-sub">Admission, fees, fines, exam and more</p>
+                        </div>
+                        <div class="prof-doc-chev">
+                            <iconify-icon icon="lucide:chevron-down" style="font-size: 13px;"></iconify-icon>
+                        </div>
+                    </button>
+                    <ul class="prof-doc-body">
+                        <li class="prof-doc-item">
+                            <span class="prof-doc-item-name">Admission Receipt</span>
+                            <span class="prof-tag-sample-quiet">Sample</span>
+                            <span class="prof-doc-item-dl">
+                                <svg class="prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" x2="12" y1="15" y2="3" />
+                                </svg>
+                            </span>
+                        </li>
+                        <li class="prof-doc-item">
+                            <span class="prof-doc-item-name">Exam Fees Receipt</span>
+                            <span class="prof-tag-sample-quiet">Sample</span>
+                            <span class="prof-doc-item-dl">
+                                <svg class="prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" x2="12" y1="15" y2="3" />
+                                </svg>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Payment Acknowledgements -->
+                <div class="prof-doc" id="doc2">
+                    <button type="button" class="prof-doc-head" onclick="toggleDoc('doc2')">
+                        <div class="prof-doc-bub prof-doc-bub-brand">
+                            <svg class="prof-svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" x2="12" y1="15" y2="3" />
+                            </svg>
+                        </div>
+                        <div class="prof-doc-txt">
+                            <p class="prof-doc-title">Payment Acknowledgements</p>
+                            <p class="prof-doc-sub">Online payment acknowledgements</p>
+                        </div>
+                        <div class="prof-doc-chev">
+                            <iconify-icon icon="lucide:chevron-down" style="font-size: 13px;"></iconify-icon>
+                        </div>
+                    </button>
+                    <ul class="prof-doc-body">
+                        <li class="prof-doc-item">
+                            <span class="prof-doc-item-name">Payment #PA-10241</span>
+                            <span class="prof-tag-sample-quiet">Sample</span>
+                            <span class="prof-doc-item-dl">
+                                <svg class="prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="7 10 12 15 17 10" />
+                                    <line x1="12" x2="12" y1="15" y2="3" />
+                                </svg>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sign Out Button -->
+        <button type="button" class="prof-signout">
+            <iconify-icon icon="lucide:log-out" style="font-size: 15px;"></iconify-icon>
+            <span>Sign Out</span>
+        </button>
+
+        <!-- Version footer -->
+        <div class="prof-footer">
+            <span class="prof-footer-txt">v1.0.6 &bull; Vriddhi</span>
+        </div>
+    </main>
+
+    <!-- FLOATING BOTTOM NAVIGATION BAR -->
+    <nav class="floating-nav-bar">
+        <!-- Home -->
+        <div class="nav-tab">
+            <div class="nav-tab-icon-frame">
+                <iconify-icon icon="lucide:house"></iconify-icon>
+            </div>
+            <span class="nav-tab-label">Home</span>
+        </div>
+
+        <!-- Notices -->
+        <div class="nav-tab">
+            <div class="nav-tab-icon-frame">
+                <span class="nav-badge"></span>
+                <iconify-icon icon="lucide:bell"></iconify-icon>
+            </div>
+            <span class="nav-tab-label">Notices</span>
+        </div>
+
+        <!-- Fees -->
+        <div class="nav-tab">
+            <div class="nav-tab-icon-frame">
+                <iconify-icon icon="lucide:credit-card"></iconify-icon>
+            </div>
+            <span class="nav-tab-label">Fees</span>
+        </div>
+
+        <!-- Library -->
+        <div class="nav-tab">
+            <div class="nav-tab-icon-frame">
+                <iconify-icon icon="lucide:book-open"></iconify-icon>
+            </div>
+            <span class="nav-tab-label">Library</span>
+        </div>
+    </nav>
+</div>
+
+<script>
+    // Accordion Toggle
+    function toggleDoc(id) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.toggle('open');
+        }
+    }
+
+    // Copy Member ID functionality
+    function copyMemberId() {
+        const text = document.getElementById('memberIdTxt').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = document.getElementById('copyBtn');
+            btn.classList.add('prof-copy-btn-ok');
+            btn.innerHTML = `<iconify-icon icon="lucide:check" style="font-size: 12px;"></iconify-icon>`;
+            setTimeout(() => {
+                btn.classList.remove('prof-copy-btn-ok');
+                btn.innerHTML = `
+                    <svg class="prof-svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+                    </svg>
+                `;
+            }, 1400);
+        });
+    }
+</script>
+
+</body>
+</html>
