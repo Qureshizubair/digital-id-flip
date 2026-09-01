@@ -1362,7 +1362,73 @@
             }, 1400);
         });
     }
+
+    /* ===== Digital ID flip-to-fullscreen QR ===== */
+    (function () {
+        var root = document.querySelector('.prof-page-root');
+        var trigger = document.getElementById('profQrTrigger');
+        var closeBtn = document.getElementById('profIdClose');
+        var cards = Array.prototype.slice.call(document.querySelectorAll('.prof-id-card'));
+        var busy = false;
+
+        function reduced() {
+            return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        }
+
+        function measure() {
+            var box = root.getBoundingClientRect();
+            var cx = box.left + box.width / 2;
+            var cy = box.top + box.height / 2;
+            cards.forEach(function (card) {
+                var r = card.getBoundingClientRect();
+                var dx = cx - (r.left + r.width / 2);
+                var dy = cy - (r.top + r.height / 2);
+                card.style.setProperty('--prof-dx', dx.toFixed(1) + 'px');
+                card.style.setProperty('--prof-dy', dy.toFixed(1) + 'px');
+            });
+        }
+
+        function open() {
+            if (busy || root.classList.contains('prof-id-open')) return;
+            busy = true;
+            if (reduced()) {
+                root.classList.add('prof-id-instant');
+            } else {
+                root.classList.remove('prof-id-instant');
+                measure();
+            }
+            root.classList.add('prof-id-open');
+            window.setTimeout(function () { busy = false; }, reduced() ? 0 : 260);
+        }
+
+        function close() {
+            if (busy || !root.classList.contains('prof-id-open')) return;
+            busy = true;
+            root.classList.remove('prof-id-open');
+            window.setTimeout(function () {
+                busy = false;
+                if (!root.classList.contains('prof-id-open')) {
+                    cards.forEach(function (card) {
+                        card.style.removeProperty('--prof-dx');
+                        card.style.removeProperty('--prof-dy');
+                    });
+                }
+            }, reduced() ? 0 : 700);
+        }
+
+        if (trigger) {
+            trigger.addEventListener('click', open);
+            trigger.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+            });
+        }
+        if (closeBtn) closeBtn.addEventListener('click', close);
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') close();
+        });
+    })();
 </script>
+
 
 </body>
 </html>
