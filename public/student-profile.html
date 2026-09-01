@@ -822,7 +822,170 @@
             border: 1.5px solid #ffffff;
             border-radius: 50%;
         }
+
+        /* ===== Digital ID: merge + flip to fullscreen QR ===== */
+        .prof-page-root { perspective: 1400px; }
+        .prof-qr { cursor: pointer; transition: transform .18s ease, opacity .3s ease; }
+        .prof-qr:active { transform: scale(.94); }
+
+        .prof-id-card {
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            transition:
+                transform 640ms cubic-bezier(.34, 1.56, .64, 1),
+                opacity 380ms cubic-bezier(.4, 0, .2, 1),
+                filter 380ms ease;
+            will-change: transform, opacity;
+        }
+
+        /* Cards gather to the container centre, converge into one shape, then flip away */
+        .prof-id-open .prof-id-card {
+            transform:
+                translate3d(var(--prof-dx, 0px), var(--prof-dy, 0px), 0)
+                scale(.86)
+                rotateY(180deg);
+            opacity: 0;
+            filter: saturate(.6);
+            pointer-events: none;
+        }
+        .prof-id-open #profIdCardVitals  { transition-delay: 0ms,   150ms, 0ms; }
+        .prof-id-open #profIdCardInst    { transition-delay: 45ms,  185ms, 0ms; }
+        .prof-id-open #profIdCardInfo    { transition-delay: 90ms,  220ms, 0ms; }
+
+        /* Chrome fades away for a distraction-free scan screen */
+        .prof-hero,
+        .floating-nav-bar,
+        .prof-signout,
+        .prof-footer {
+            transition: opacity 320ms ease, transform 420ms cubic-bezier(.4, 0, .2, 1);
+        }
+        .prof-id-open .prof-hero { opacity: 0; transform: translateY(-14px); pointer-events: none; }
+        .prof-id-open .floating-nav-bar { opacity: 0; transform: translateY(24px); pointer-events: none; }
+        .prof-id-open .prof-signout,
+        .prof-id-open .prof-footer { opacity: 0; pointer-events: none; }
+        .prof-id-open .prof-scroll { overflow: hidden; }
+
+        /* Fullscreen QR "back side" — stays inside the 480px shell */
+        .prof-idqr {
+            position: absolute;
+            inset: 0;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 26px 20px;
+            background-color: #FFFFFF;
+            color: var(--prof-fg);
+            opacity: 0;
+            visibility: hidden;
+            transform-style: preserve-3d;
+            transition: opacity 300ms ease, visibility 0s linear 700ms;
+        }
+        .prof-idqr-face {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            transform: rotateY(-180deg) scale(.84);
+            backface-visibility: hidden;
+            transition:
+                transform 660ms cubic-bezier(.22, .9, .24, 1),
+                opacity 300ms ease;
+            opacity: 0;
+        }
+        .prof-id-open .prof-idqr {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 260ms ease 220ms, visibility 0s;
+        }
+        .prof-id-open .prof-idqr-face {
+            transform: rotateY(0deg) scale(1);
+            opacity: 1;
+            transition:
+                transform 660ms cubic-bezier(.22, .9, .24, 1) 200ms,
+                opacity 260ms ease 220ms;
+        }
+
+        .prof-idqr-close {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background-color: var(--prof-info-soft);
+            border: 1px solid var(--prof-hairline);
+            color: var(--prof-brand);
+        }
+        .prof-idqr-close:active { background-color: var(--prof-hairline); }
+
+        .prof-idqr-eyebrow {
+            margin: 0;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: .18em;
+            color: var(--prof-label);
+        }
+        .prof-idqr-panel {
+            border-radius: 24px;
+            background-color: #FFFFFF;
+            border: 1px solid var(--prof-hairline);
+            box-shadow: var(--prof-shadow-card);
+            padding: 26px;
+        }
+        .prof-idqr-svg {
+            display: block;
+            width: 248px;
+            height: 248px;
+            shape-rendering: crispEdges;
+        }
+        .prof-idqr-meta { text-align: center; }
+        .prof-idqr-name {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 800;
+            letter-spacing: -.01em;
+            color: var(--prof-fg);
+        }
+        .prof-idqr-mid {
+            margin: 4px 0 0 0;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--prof-brand);
+        }
+        .prof-idqr-hint {
+            margin: 0;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--prof-label);
+        }
+
+        /* Graceful degradation: straight cut with a plain fade */
+        @media (prefers-reduced-motion: reduce) {
+            .prof-id-card,
+            .prof-idqr,
+            .prof-idqr-face,
+            .prof-hero,
+            .floating-nav-bar,
+            .prof-signout,
+            .prof-footer {
+                transition: opacity 120ms linear !important;
+            }
+            .prof-id-open .prof-id-card { transform: none; filter: none; }
+            .prof-idqr-face { transform: none; }
+            .prof-id-open .prof-idqr-face { transform: none; }
+        }
+        .prof-id-instant .prof-id-card,
+        .prof-id-instant .prof-idqr,
+        .prof-id-instant .prof-idqr-face,
+        .prof-id-instant .prof-hero,
+        .prof-id-instant .floating-nav-bar {
+            transition: opacity 120ms linear !important;
+        }
+        .prof-id-instant.prof-id-open .prof-id-card { transform: none; filter: none; }
+        .prof-id-instant .prof-idqr-face { transform: none; }
     </style>
+
 </head>
 <body>
 
