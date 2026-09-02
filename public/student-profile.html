@@ -334,7 +334,7 @@
             z-index: 5;
             flex: 1;
             min-height: 0;
-            padding: 12px 14px 122px 14px;
+            padding: 12px 14px 100px 14px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
@@ -760,67 +760,88 @@
         /* ===== Reusable Floating Bottom Navigation ===== */
         .floating-nav-bar {
             position: absolute;
-            bottom: 12px;
-            left: 16px;
-            right: 16px;
-            height: 70px;
-            border-radius: 24px;
-            border: 1.5px solid transparent;
-            background: linear-gradient(#ffffff, #F8FAFC) padding-box,
-                linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%) border-box;
-            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.08);
+            bottom: max(12px, env(safe-area-inset-bottom));
+            left: 18px;
+            right: 18px;
+            height: 58px;
+            border-radius: 28px;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            background: rgba(255, 255, 255, 0.96);
+            -webkit-backdrop-filter: blur(16px) saturate(1.2);
+            backdrop-filter: blur(16px) saturate(1.2);
+            box-shadow:
+                0 12px 32px rgba(13, 71, 161, 0.10),
+                0 2px 6px rgba(13, 71, 161, 0.04),
+                inset 0 1px 0 rgba(255, 255, 255, 0.85);
             z-index: 100;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             align-items: center;
+            padding: 0 6px;
         }
         .nav-tab {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            gap: 3px;
             cursor: pointer;
             text-decoration: none;
+            padding: 4px 0;
+            border-radius: 18px;
+            transition: transform 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
         }
+        .nav-tab:active { transform: scale(0.94); }
         .nav-tab-icon-frame {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background-color: transparent;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #64748B;
-            transition: background-color 0.2s, color 0.2s, transform 0.15s;
+            color: var(--prof-label);
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s cubic-bezier(.34, 1.56, .64, 1), box-shadow 0.2s ease;
             position: relative;
         }
         .nav-tab-icon-frame iconify-icon {
-            font-size: 22px;
+            font-size: 19px;
         }
         .nav-tab-label {
-            font-size: 10px;
-            font-weight: 700;
-            color: #64748B;
-            transition: color 0.2s;
+            font-size: 9.5px;
+            font-weight: 600;
+            color: var(--prof-label);
+            transition: color 0.2s ease, font-weight 0.2s ease;
         }
         .nav-tab.active .nav-tab-icon-frame {
-            background-color: #EFF6FF;
-            color: #136dec;
-            transform: scale(1.05);
+            background: linear-gradient(135deg, var(--prof-info-soft) 0%, #EEF2FF 100%);
+            color: var(--prof-brand);
+            transform: scale(1.08);
+            box-shadow: 0 4px 12px rgba(53, 53, 212, 0.14);
         }
         .nav-tab.active .nav-tab-label {
-            color: #136dec;
+            color: var(--prof-brand);
+            font-weight: 700;
+        }
+        .nav-tab.active::after {
+            content: "";
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--prof-brand);
+            margin-top: 1px;
         }
         .nav-badge {
             position: absolute;
             top: 2px;
             right: 2px;
-            width: 10px;
-            height: 10px;
-            background-color: #DC2626;
+            width: 9px;
+            height: 9px;
+            background-color: var(--prof-danger);
             border: 1.5px solid #ffffff;
             border-radius: 50%;
+            box-shadow: 0 1px 3px rgba(224, 65, 58, 0.25);
         }
 
         /* ===== Digital ID: merge + flip to fullscreen QR ===== */
@@ -1618,34 +1639,34 @@
     </main>
 
     <!-- FLOATING BOTTOM NAVIGATION BAR -->
-    <nav class="floating-nav-bar">
+    <nav class="floating-nav-bar" aria-label="Primary navigation">
         <!-- Home -->
-        <div class="nav-tab">
+        <div class="nav-tab" role="button" aria-label="Home">
             <div class="nav-tab-icon-frame">
-                <iconify-icon icon="lucide:house"></iconify-icon>
+                <iconify-icon icon="lucide:home"></iconify-icon>
             </div>
             <span class="nav-tab-label">Home</span>
         </div>
 
         <!-- Notices -->
-        <div class="nav-tab">
+        <div class="nav-tab" role="button" aria-label="Notices">
             <div class="nav-tab-icon-frame">
-                <span class="nav-badge"></span>
+                <span class="nav-badge" aria-hidden="true"></span>
                 <iconify-icon icon="lucide:bell"></iconify-icon>
             </div>
             <span class="nav-tab-label">Notices</span>
         </div>
 
         <!-- Fees -->
-        <div class="nav-tab">
+        <div class="nav-tab" role="button" aria-label="Fees">
             <div class="nav-tab-icon-frame">
-                <iconify-icon icon="lucide:credit-card"></iconify-icon>
+                <iconify-icon icon="lucide:wallet"></iconify-icon>
             </div>
             <span class="nav-tab-label">Fees</span>
         </div>
 
         <!-- Library -->
-        <div class="nav-tab">
+        <div class="nav-tab" role="button" aria-label="Library">
             <div class="nav-tab-icon-frame">
                 <iconify-icon icon="lucide:book-open"></iconify-icon>
             </div>
