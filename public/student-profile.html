@@ -757,81 +757,84 @@
             font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
         }
 
-        /* ===== Reusable Floating Bottom Navigation ===== */
+        /* ===== Reusable Floating Bottom Navigation (v3) ===== */
         .floating-nav-bar {
             position: absolute;
-            bottom: max(12px, env(safe-area-inset-bottom));
-            left: 18px;
-            right: 18px;
-            height: 58px;
-            border-radius: 28px;
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            background: rgba(255, 255, 255, 0.96);
-            -webkit-backdrop-filter: blur(16px) saturate(1.2);
-            backdrop-filter: blur(16px) saturate(1.2);
+            bottom: max(14px, env(safe-area-inset-bottom));
+            left: 16px;
+            right: 16px;
+            height: 56px;
+            border-radius: 22px;
+            border: 1px solid rgba(226, 232, 240, 0.85);
+            background: rgba(255, 255, 255, 0.88);
+            -webkit-backdrop-filter: blur(20px) saturate(1.6);
+            backdrop-filter: blur(20px) saturate(1.6);
             box-shadow:
-                0 12px 32px rgba(13, 71, 161, 0.10),
-                0 2px 6px rgba(13, 71, 161, 0.04),
-                inset 0 1px 0 rgba(255, 255, 255, 0.85);
+                0 10px 30px rgba(15, 23, 42, 0.10),
+                0 1px 2px rgba(15, 23, 42, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
             z-index: 100;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            align-items: center;
-            padding: 0 6px;
+            align-items: stretch;
+            padding: 6px;
+            gap: 2px;
         }
         .nav-tab {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 3px;
+            gap: 2px;
             cursor: pointer;
             text-decoration: none;
-            padding: 4px 0;
-            border-radius: 18px;
-            transition: transform 0.15s ease;
+            border-radius: 16px;
+            transition: background-color .22s ease, transform .16s ease;
             -webkit-tap-highlight-color: transparent;
         }
-        .nav-tab:active { transform: scale(0.94); }
+        .nav-tab:active { transform: scale(0.95); }
         .nav-tab-icon-frame {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background-color: transparent;
+            width: 22px;
+            height: 22px;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--prof-label);
-            transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s cubic-bezier(.34, 1.56, .64, 1), box-shadow 0.2s ease;
+            color: #94A3B8;
+            transition: color .22s ease, transform .28s cubic-bezier(.34, 1.56, .64, 1);
             position: relative;
         }
-        .nav-tab-icon-frame iconify-icon {
-            font-size: 19px;
-        }
+        .nav-tab-icon-frame iconify-icon { font-size: 20px; }
         .nav-tab-label {
             font-size: 9.5px;
+            letter-spacing: .01em;
             font-weight: 600;
-            color: var(--prof-label);
-            transition: color 0.2s ease, font-weight 0.2s ease;
+            color: #94A3B8;
+            transition: color .22s ease;
+        }
+        .nav-tab.active {
+            background: linear-gradient(180deg, rgba(53, 53, 212, .09), rgba(53, 53, 212, .04));
         }
         .nav-tab.active .nav-tab-icon-frame {
-            background: linear-gradient(135deg, var(--prof-info-soft) 0%, #EEF2FF 100%);
             color: var(--prof-brand);
-            transform: scale(1.08);
-            box-shadow: 0 4px 12px rgba(53, 53, 212, 0.14);
+            transform: translateY(-1px);
         }
         .nav-tab.active .nav-tab-label {
             color: var(--prof-brand);
             font-weight: 700;
         }
-        .nav-tab.active::after {
+        .nav-tab.active::before {
             content: "";
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background-color: var(--prof-brand);
-            margin-top: 1px;
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            border-radius: 0 0 3px 3px;
+            background: var(--prof-brand);
         }
+
         .nav-badge {
             position: absolute;
             top: 2px;
