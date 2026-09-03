@@ -1814,7 +1814,11 @@
         });
     }
 
-    /* ===== Digital ID flip-to-fullscreen QR ===== */
+    // Download admission form: show green yes tick
+    function downloadForm2026_27(btn) {
+        if (btn.classList.contains('ok')) return;
+        btn.classList.add('ok');
+    }
     (function () {
         var root = document.querySelector('.prof-page-root');
         var trigger = document.getElementById('profQrTrigger');
