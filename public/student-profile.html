@@ -695,10 +695,49 @@
             text-overflow: ellipsis;
         }
         .prof-doc-item-dl {
-            display: flex;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             flex-shrink: 0;
+            height: 26px;
+            width: 26px;
+            border-radius: 7px;
+            border: 1px solid var(--prof-hairline-soft);
+            background-color: var(--prof-card);
             color: var(--prof-brand);
+            cursor: pointer;
+            padding: 0;
+            transition: background-color .18s ease, border-color .18s ease, color .18s ease, transform .15s ease;
+            position: relative;
         }
+        .prof-doc-item-dl:active { transform: scale(.90); }
+        .prof-doc-item-dl .prof-doc-item-dl-ok {
+            position: absolute;
+            opacity: 0;
+            transform: scale(.6);
+            transition: opacity .2s ease, transform .25s cubic-bezier(.34, 1.56, .64, 1);
+        }
+        .prof-doc-item-dl .prof-doc-item-dl-icon {
+            transition: opacity .2s ease, transform .2s ease;
+        }
+        .prof-doc-item-dl.ok {
+            background-color: var(--prof-success-soft);
+            border-color: #B6E5CE;
+            color: var(--prof-success);
+        }
+        .prof-doc-item-dl.ok .prof-doc-item-dl-icon {
+            opacity: 0;
+            transform: scale(.6);
+        }
+        .prof-doc-item-dl.ok .prof-doc-item-dl-ok {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .prof-doc-item-locked {
+            cursor: pointer;
+            transition: background-color .15s ease;
+        }
+        .prof-doc-item-locked:active { background-color: rgba(224, 65, 58, .06); }
         .prof-tag-sample {
             flex-shrink: 0;
             border-radius: 6px;
@@ -1520,26 +1559,30 @@
                         <li class="prof-doc-item">
                             <span class="prof-doc-item-name">Admission Form 2026-27</span>
                             <span class="prof-tag-sample-quiet">Sample</span>
-                            <span class="prof-doc-item-dl">
-                                <svg class="prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                            <button type="button" class="prof-doc-item-dl" onclick="downloadForm2026_27(this)" aria-label="Download Admission Form 2026-27">
+                                <svg class="prof-doc-item-dl-icon prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" x2="12" y1="15" y2="3" />
                                 </svg>
-                            </span>
+                                <svg class="prof-doc-item-dl-ok prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 6 9 17l-5-5" />
+                                </svg>
+                            </button>
                         </li>
-                        <li class="prof-doc-item">
+                        <li class="prof-doc-item prof-doc-item-locked" onclick="alert('Please complete payment first')">
                             <span class="prof-doc-item-name">Admission Form 2025-26</span>
                             <span class="prof-tag-sample-quiet">Sample</span>
-                            <span class="prof-doc-item-dl">
+                            <button type="button" class="prof-doc-item-dl" aria-label="Admission Form 2025-26 locked" onclick="event.stopPropagation(); alert('Please complete payment first')">
                                 <svg class="prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                                     <polyline points="7 10 12 15 17 10" />
                                     <line x1="12" x2="12" y1="15" y2="3" />
                                 </svg>
-                            </span>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -1771,7 +1814,11 @@
         });
     }
 
-    /* ===== Digital ID flip-to-fullscreen QR ===== */
+    // Download admission form: show green yes tick
+    function downloadForm2026_27(btn) {
+        if (btn.classList.contains('ok')) return;
+        btn.classList.add('ok');
+    }
     (function () {
         var root = document.querySelector('.prof-page-root');
         var trigger = document.getElementById('profQrTrigger');
