@@ -694,6 +694,13 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+        .prof-doc-item-dl-wrap {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
         .prof-doc-item-dl {
             display: inline-flex;
             align-items: center;
@@ -736,8 +743,51 @@
         .prof-doc-item-locked {
             cursor: pointer;
             transition: background-color .15s ease;
+            position: relative;
         }
         .prof-doc-item-locked:active { background-color: rgba(224, 65, 58, .06); }
+
+        /* Payment reminder toast — thought comment above locked button */
+        .prof-payment-toast {
+            position: absolute;
+            right: 50%;
+            bottom: calc(100% + 8px);
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 10px;
+            border-radius: 10px;
+            background-color: #FFF9E6;
+            border: 1px solid #F5E1B8;
+            color: var(--prof-warning);
+            font-size: 9.5px;
+            font-weight: 700;
+            line-height: 1.25;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(28, 32, 51, .10);
+            opacity: 0;
+            transform: translateX(50%) translateX(18px);
+            pointer-events: none;
+            transition: opacity .22s ease, transform .32s cubic-bezier(.34, 1.56, .64, 1);
+        }
+        .prof-payment-toast.open {
+            opacity: 1;
+            transform: translateX(50%) translateX(0);
+        }
+        .prof-payment-toast::after {
+            content: "";
+            position: absolute;
+            right: 50%;
+            bottom: -5px;
+            width: 8px;
+            height: 8px;
+            background-color: #FFF9E6;
+            border-right: 1px solid #F5E1B8;
+            border-bottom: 1px solid #F5E1B8;
+            transform: translateX(50%) rotate(45deg);
+        }
+        .prof-payment-toast iconify-icon { font-size: 11px; }
         .prof-tag-sample {
             flex-shrink: 0;
             border-radius: 6px;
@@ -1572,17 +1622,23 @@
                                 </svg>
                             </button>
                         </li>
-                        <li class="prof-doc-item prof-doc-item-locked" onclick="alert('Please complete payment first')">
+                        <li class="prof-doc-item prof-doc-item-locked" onclick="showPaymentToast(this)">
                             <span class="prof-doc-item-name">Admission Form 2025-26</span>
                             <span class="prof-tag-sample-quiet">Sample</span>
-                            <button type="button" class="prof-doc-item-dl" aria-label="Admission Form 2025-26 locked" onclick="event.stopPropagation(); alert('Please complete payment first')">
-                                <svg class="prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
-                                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                    <polyline points="7 10 12 15 17 10" />
-                                    <line x1="12" x2="12" y1="15" y2="3" />
-                                </svg>
-                            </button>
+                            <div class="prof-doc-item-dl-wrap">
+                                <div class="prof-payment-toast" aria-live="polite">
+                                    <iconify-icon icon="lucide:lock" style="font-size: 11px;"></iconify-icon>
+                                    Please complete payment first
+                                </div>
+                                <button type="button" class="prof-doc-item-dl" aria-label="Admission Form 2025-26 locked" onclick="event.stopPropagation(); showPaymentToast(this.closest('.prof-doc-item-locked'))">
+                                    <svg class="prof-svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                        <polyline points="7 10 12 15 17 10" />
+                                        <line x1="12" x2="12" y1="15" y2="3" />
+                                    </svg>
+                                </button>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -1818,6 +1874,17 @@
     function downloadForm2026_27(btn) {
         if (btn.classList.contains('ok')) return;
         btn.classList.add('ok');
+    }
+
+    // Locked admission form: show payment reminder thought-toast
+    function showPaymentToast(row) {
+        if (!row) return;
+        var toast = row.querySelector('.prof-payment-toast');
+        if (!toast) return;
+        document.querySelectorAll('.prof-payment-toast.open').forEach(function (t) { t.classList.remove('open'); });
+        clearTimeout(toast._hideTimer);
+        toast.classList.add('open');
+        toast._hideTimer = setTimeout(function () { toast.classList.remove('open'); }, 2600);
     }
     (function () {
         var root = document.querySelector('.prof-page-root');
