@@ -2155,6 +2155,101 @@
                 <p class="prof-idqr-brand">Powered by <strong>Vriddhi</strong></p>
             </div>
     </section>
+
+    <!-- ══════════ SIDE MENU DRAWER ══════════ -->
+    <div class="prof-menu" id="profMenu" aria-hidden="true">
+        <div class="prof-menu-scrim" onclick="profMenuClose()"></div>
+
+        <nav class="prof-menu-panel" aria-label="Main menu">
+            <!-- Drawer header -->
+            <div class="prof-menu-head">
+                <div class="prof-menu-head-row">
+                    <div class="prof-menu-avatar">MS</div>
+                    <div class="prof-menu-who">
+                        <p class="prof-menu-name">Mubeen Shaikh</p>
+                        <p class="prof-menu-class">S.Y. B.Com • Div A</p>
+                    </div>
+                    <button type="button" class="prof-menu-bell" aria-label="Notifications" onclick="profMenuClose()">
+                        <iconify-icon icon="lucide:bell" style="font-size: 17px;"></iconify-icon>
+                        <span class="prof-menu-bell-dot"></span>
+                    </button>
+                </div>
+                <span class="prof-menu-verified">
+                    <iconify-icon icon="lucide:badge-check" style="font-size: 12px;"></iconify-icon>
+                    Verified Student
+                </span>
+            </div>
+
+            <!-- Drawer body -->
+            <div class="prof-menu-body">
+                <p class="prof-menu-label">MAIN MENU</p>
+
+                <button type="button" class="prof-menu-item active" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic" style="background:#E6E7FB;color:#3535D4;"><iconify-icon icon="lucide:home"></iconify-icon></span>
+                    <span class="prof-menu-item-text">Dashboard</span>
+                    <iconify-icon class="prof-menu-item-chev" icon="lucide:chevron-right"></iconify-icon>
+                </button>
+                <button type="button" class="prof-menu-item" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic" style="background:#EFEAFE;color:#7D2FC4;"><iconify-icon icon="lucide:user-round"></iconify-icon></span>
+                    <span class="prof-menu-item-text">My Profile</span>
+                    <iconify-icon class="prof-menu-item-chev" icon="lucide:chevron-right"></iconify-icon>
+                </button>
+                <button type="button" class="prof-menu-item" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic" style="background:#FBE3E2;color:#E0413A;"><iconify-icon icon="lucide:bell"></iconify-icon></span>
+                    <span class="prof-menu-item-text">Notifications</span>
+                    <span class="prof-menu-badge-new">NEW</span>
+                    <iconify-icon class="prof-menu-item-chev" icon="lucide:chevron-right"></iconify-icon>
+                </button>
+                <button type="button" class="prof-menu-item" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic" style="background:#DCF5E8;color:#128A5B;"><iconify-icon icon="lucide:wallet"></iconify-icon></span>
+                    <span class="prof-menu-item-text">Fee Details</span>
+                    <iconify-icon class="prof-menu-item-chev" icon="lucide:chevron-right"></iconify-icon>
+                </button>
+                <button type="button" class="prof-menu-item" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic" style="background:#E3F0FE;color:#1B6DD1;"><iconify-icon icon="lucide:book-open"></iconify-icon></span>
+                    <span class="prof-menu-item-text">Digital Library</span>
+                    <iconify-icon class="prof-menu-item-chev" icon="lucide:chevron-right"></iconify-icon>
+                </button>
+                <button type="button" class="prof-menu-item" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic" style="background:#E6E7FB;color:#5B5BE8;"><iconify-icon icon="lucide:arrow-left-right"></iconify-icon></span>
+                    <span class="prof-menu-item-text">Switch Institute</span>
+                    <iconify-icon class="prof-menu-item-chev" icon="lucide:chevron-right"></iconify-icon>
+                </button>
+                <button type="button" class="prof-menu-item" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic" style="background:#FBEED6;color:#C98212;"><iconify-icon icon="lucide:calendar-days"></iconify-icon></span>
+                    <span class="prof-menu-item-text">Timetable</span>
+                    <iconify-icon class="prof-menu-item-chev" icon="lucide:chevron-right"></iconify-icon>
+                </button>
+                <button type="button" class="prof-menu-item" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic" style="background:#DFF3F6;color:#0E7C92;"><iconify-icon icon="lucide:bar-chart-3"></iconify-icon></span>
+                    <span class="prof-menu-item-text">Results</span>
+                    <iconify-icon class="prof-menu-item-chev" icon="lucide:chevron-right"></iconify-icon>
+                </button>
+
+                <div class="prof-menu-divider"></div>
+
+                <button type="button" class="prof-menu-item" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic" style="background:#F1F2F6;color:#767C8E;"><iconify-icon icon="lucide:settings"></iconify-icon></span>
+                    <span class="prof-menu-item-text">Settings</span>
+                    <iconify-icon class="prof-menu-item-chev" icon="lucide:chevron-right"></iconify-icon>
+                </button>
+
+                <button type="button" class="prof-menu-item prof-menu-signout" onclick="profMenuClose()">
+                    <span class="prof-menu-item-ic"><iconify-icon icon="lucide:log-out"></iconify-icon></span>
+                    <span class="prof-menu-item-text">Sign Out</span>
+                </button>
+
+                <div class="prof-menu-card">
+                    <span class="prof-menu-card-ic"><iconify-icon icon="lucide:graduation-cap"></iconify-icon></span>
+                    <div>
+                        <h4>Stay Connected</h4>
+                        <p>Your education, our priority.</p>
+                    </div>
+                    <iconify-icon class="prof-menu-card-shield" icon="lucide:shield-check"></iconify-icon>
+                </div>
+            </div>
+        </nav>
+    </div>
 </div>
 
 
