@@ -1217,7 +1217,7 @@
         }
         .prof-idqr-hint {
             margin: 0;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
             text-align: center;
@@ -1225,8 +1225,72 @@
             font-weight: 600;
             line-height: 1.35;
             color: var(--prof-label);
+            padding: 7px 12px;
+            border-radius: 999px;
+            background-color: var(--prof-card);
+            box-shadow: var(--prof-shadow-card);
         }
         .prof-idqr-hint iconify-icon { font-size: 13px; color: var(--prof-brand); }
+
+        /* ── Digital ID: barcode strip ── */
+        .prof-idqr-barcode {
+            width: 100%;
+            height: 28px;
+            border-radius: 6px;
+            background-image: repeating-linear-gradient(90deg,
+                var(--prof-fg) 0 2px, transparent 2px 5px,
+                var(--prof-fg) 5px 6px, transparent 6px 10px,
+                var(--prof-fg) 10px 13px, transparent 13px 16px,
+                var(--prof-fg) 16px 17px, transparent 17px 22px,
+                var(--prof-fg) 22px 25px, transparent 25px 28px);
+            opacity: .8;
+        }
+        .prof-idqr-valid iconify-icon { font-size: 11px; }
+
+        /* ── Digital ID: footer below panel ── */
+        .prof-idqr-foot {
+            width: 100%;
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding-top: 6px;
+        }
+        .prof-idqr-badges {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .prof-idqr-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 11px;
+            border-radius: 999px;
+            background-color: var(--prof-info-soft);
+            color: var(--prof-brand-deep);
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: .01em;
+        }
+        .prof-idqr-badge iconify-icon { font-size: 12px; color: var(--prof-brand); }
+        .prof-idqr-brand {
+            margin: 0;
+            font-size: 9.5px;
+            font-weight: 600;
+            letter-spacing: .06em;
+            color: var(--prof-label);
+        }
+        .prof-idqr-brand strong {
+            font-weight: 800;
+            background-image: var(--prof-grad-inst);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
 
 
         /* Graceful degradation: straight cut with a plain fade */
@@ -1830,13 +1894,43 @@
                 </svg>
             </div>
 
+            <div class="prof-idqr-divider"></div>
             <div class="prof-idqr-meta">
-                <p class="prof-idqr-name">Mubeen Shaikh</p>
-                <p class="prof-idqr-mid">MEM-2024-8849 • S.Y. B.Com • Div A</p>
+                <div class="prof-idqr-avatar">MS</div>
+                <div class="prof-idqr-metacol">
+                    <p class="prof-idqr-name">Mubeen Shaikh</p>
+                    <p class="prof-idqr-mid">MEM-2024-8849 • S.Y. B.Com • Div A</p>
+                    <p class="prof-idqr-sub">Sunrise College of Commerce</p>
+                </div>
+                <span class="prof-idqr-valid">
+                    <iconify-icon icon="lucide:badge-check"></iconify-icon>
+                    VALID
+                </span>
             </div>
-
-            <p class="prof-idqr-hint">Show this code to the examiner or gate scanner</p>
+            <div class="prof-idqr-barcode" aria-hidden="true"></div>
         </div>
+
+            <div class="prof-idqr-foot">
+                <p class="prof-idqr-hint">
+                    <iconify-icon icon="lucide:scan-line"></iconify-icon>
+                    Show this code to the examiner or gate scanner
+                </p>
+                <div class="prof-idqr-badges">
+                    <span class="prof-idqr-badge">
+                        <iconify-icon icon="lucide:lock"></iconify-icon>
+                        Encrypted
+                    </span>
+                    <span class="prof-idqr-badge">
+                        <iconify-icon icon="lucide:refresh-cw"></iconify-icon>
+                        Auto-refresh
+                    </span>
+                    <span class="prof-idqr-badge">
+                        <iconify-icon icon="lucide:wifi-off"></iconify-icon>
+                        Works offline
+                    </span>
+                </div>
+                <p class="prof-idqr-brand">Powered by <strong>Vriddhi</strong></p>
+            </div>
     </section>
 </div>
 
